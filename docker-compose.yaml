@@ -58,15 +58,21 @@ services:
     build: ./mongodb
     image: kommalapudi143/mongodb:1.0.0
     container_name: mongodb
+    volumes:
+      - mongodb:/data/db
   
   redis:
     image: redis:7.0
     container_name: redis
+    volumes:
+      - redis:/data
   
   mysql:
     build: ./mysql
     image: kommalapudi143/mysql:1.0.0
     container_name: mysql
+    volumes:
+      - mysql:/var/lib/mysql
 
   rabbitmq:
     image: rabbitmq:3
@@ -74,6 +80,8 @@ services:
       RABBITMQ_DEFAULT_USER: "roboshop"
       RABBITMQ_DEFAULT_PASS: "roboshop123"
     container_name: rabbitmq
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
 
 
 networks:
@@ -81,3 +89,10 @@ networks:
     driver: bridge
     name: roboshop
     external: false # if true, we need to create the network manually before running docker-compose up
+
+
+volumes:
+  mongodb:  # docker volume create mongodb
+  redis:
+  mysql:
+  rabbitmq:
